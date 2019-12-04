@@ -18,7 +18,7 @@ struct comp1 a[3][9] = {0, };
 void printArray() {
 	for(int i = 0; i < 3; i++) {
 		for(int j = 0; j < 9; j++) {
-			printf("a[%d][%d]:\ncheck[%d]\nenable[%d]\nvalue[%d]\n", i, j, a[i][j].state1, a[i][j].state2, (j+1));
+			printf("a[%d][%d]:check[%d]enable[%d]value[%d]\n", i, j, a[i][j].state1, a[i][j].state2, (j+1));
 		}
 		printf("\n");
 	}
@@ -65,18 +65,27 @@ void check_state1() {
 	printArray();
 }
 
+// 1:true, 0:false
+int check_enable() {	 
+	if(a[num1][num2].state2 == 1) {
+		return 0;
+	}
+	return 1;
+}
+
 void select_panel() {	
-	//check_state2();
 	printArray();
-	printf("STEP2-input radio button number:");
-	scanf("%d", &num2);	
+	do {
+		printf("STEP2-input radio button number:");
+		scanf("%d", &num2);
+	} while(!check_enable());
 }
 
 int main() {
 	while(num1 != 999) {
 		printf("STEP1-input panel number:");
 		scanf("%d", &num1);
-		select_panel();				
+		select_panel();
 		check_state1();
 		printf("num1:[%d], num2:[%d]\n", num1, num2);
 	}
