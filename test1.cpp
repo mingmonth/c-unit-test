@@ -38,7 +38,7 @@ void printArray() {
 }
 
 // 해당 i 인덱스에 state1 이 1인 인덱스 return 
-int check_state2() {
+int getCheckIndex() {
 	for(int j = 0; j < RADIO_BTN_NUM_MAX; j++) {
 		if(a[num1][j].state1 == 1) {
 			return j;
@@ -60,12 +60,12 @@ void setCheckValue() {
 // check uncheck
 // input 값이 입력되는 순간 전체 데이터에 반영
 void check_state1() {
-	int checkedIndex = -1;
+	int old_check_index = -1;
 	// 체크되었던 index 얻어오기.
 	// 토글 하기 이전 check 상태인 인덱스 값 얻어오기. 
-	checkedIndex = check_state2();	
-	// 토글 액션 
-	setCheckValue();		
+	old_check_index = getCheckIndex();	
+	// 토글 액션 기준값 설정 
+	setCheckValue();
 	
 	for(int i = 0; i < LED_NUM_MAX; i++) {
 		for(int j = 0; j < RADIO_BTN_NUM_MAX; j++) {
@@ -86,7 +86,7 @@ void check_state1() {
 					}
 				} 
 				// check 되어있었던 index 값은 enable 상태로 변경 
-				else if(j == checkedIndex) {
+				else if(j == old_check_index) {
 					//enable
 					a[i][j].state2 = 0;
 				}
